@@ -19,7 +19,7 @@
 Antes de arrancar, asegúrate de tener instalado Python 3.8+ y las dependencias del proyecto:
 
 ```bash
-pip install fastapi uvicorn pydantic
+sudo apt install python3-pip python3-venv python3-uvicorn python3-fastapi uvicorn
 ```
 📦 Estructura del Proyecto
 ```bash
