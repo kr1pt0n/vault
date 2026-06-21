@@ -45,7 +45,7 @@ sudo apt install python3-pip python3-venv python3-uvicorn python3-fastapi uvicor
 
 [+] Clona este repositorio:
 ```bash
-git clone [https://github.com/kr1pt0n/vault.git]
+git clone https://github.com/kr1pt0n/vault.git
 cd vault
 ```
 [+] Inicia el servidor con Uvicorn:
