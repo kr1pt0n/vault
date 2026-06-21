@@ -22,7 +22,6 @@ Antes de arrancar, asegúrate de tener instalado Python 3.8+ y las dependencias 
 pip install fastapi uvicorn pydantic
 
 📦 Estructura del Proyecto
-Plaintext
 
 ├── main.py          # Servidor Backend (FastAPI + SQLite)
 ├── index.html       # Interfaz de Usuario (HTML5, CSS3, JS Vanilla)
@@ -33,11 +32,10 @@ Plaintext
     Clona este repositorio:
     Bash
 
-    git clone [https://github.com/TU_USUARIO/vault-redteam.git](https://github.com/TU_USUARIO/vault-redteam.git)
-    cd vault-redteam
+    git clone [https://github.com/kr1pt0n/vault.git]
+    cd vault
 
     Inicia el servidor con Uvicorn:
-    Bash
 
     uvicorn main:app --reload
 
@@ -56,8 +54,3 @@ Plaintext
     Esta herramienta está diseñada exclusivamente para fines de investigación de seguridad, auditorías autorizadas y entornos de aprendizaje (CTFs/Laboratorios). El uso de payloads o comandos almacenados en este Vault contra objetivos sin consentimiento previo es totalmente ilegal. El desarrollador no se hace responsable del mal uso de este software.
 
 
-### 💡 Tips antes de subirlo a GitHub:
-1. Recuerda cambiar `TU_USUARIO` en la sección de clonado por tu nombre real de GitHub.
-2. **Recomendación:** Crea un archivo llamado `.gitignore` en la misma carpeta y escribe adentro `vault.db`. De esta forma, tu base de datos personal con tus payloads locales no se subirá públicamente a internet y mantendrás limpio el repositorio para que otros generen su propia base de datos desde cero. 
-
-¡Ya lo tienes listo para presumir en tu perfil! 🚀
