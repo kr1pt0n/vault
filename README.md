@@ -1,3 +1,12 @@
+<div>
+  <img src="https://img.shields.io/badge/-Python-black?style=for-the-badge&logoColor=white&logo=python&color=3776AB" alt="python" />
+  <img src="https://img.shields.io/badge/-FastAPI-black?style=for-the-badge&logoColor=white&logo=fastapi&color=009688" alt="fastapi" />
+  <img src="https://img.shields.io/badge/-SQLite-black?style=for-the-badge&logoColor=white&logo=sqlite&color=003B57" alt="sqlite" />
+  <img src="https://img.shields.io/badge/-HTML5-black?style=for-the-badge&logoColor=white&logo=html5&color=E34F26" alt="html5" />
+  <img src="https://img.shields.io/badge/-CSS3-black?style=for-the-badge&logoColor=white&logo=css3&color=1572B6" alt="css3" />
+  <img src="https://img.shields.io/badge/-JavaScript-black?style=for-the-badge&logoColor=white&logo=javascript&color=F7DF1E" alt="javascript" />
+</div>
+
 # ⚡ VAULT - Red Team Command & Payload Manager
 
 **VAULT** es un gestor local e interactivo diseñado para operadores de Red Team y pentesters. Permite centralizar, buscar, copiar, crear y editar payloads, exploits o comandos recurrentes organizados por categorías tácticas (Escaneo, Explotación, Persistencia, etc.) a través de una interfaz web minimalista con modo oscuro optimizado.
