@@ -1,3 +1,9 @@
+<p align="center">
+  <img src="https://capsule-render.vercel.app/render?type=wave&color=09090b&height=180&section=header&text=VAULT&fontSize=50&fontColor=ef4444&animation=fadeIn" alt="Vault Banner" />
+</p>
+
+# ⚡ VAULT - Red Team Command & Payload Manager
+
 <div>
   <img src="https://img.shields.io/badge/-Python-black?style=for-the-badge&logoColor=white&logo=python&color=3776AB" alt="python" />
   <img src="https://img.shields.io/badge/-FastAPI-black?style=for-the-badge&logoColor=white&logo=fastapi&color=009688" alt="fastapi" />
