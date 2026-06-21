@@ -20,15 +20,15 @@ Antes de arrancar, asegúrate de tener instalado Python 3.8+ y las dependencias 
 
 ```bash
 pip install fastapi uvicorn pydantic
-
+```
 📦 Estructura del Proyecto
-
+```bash
 ├── main.py          # Servidor Backend (FastAPI + SQLite)
 ├── index.html       # Interfaz de Usuario (HTML5, CSS3, JS Vanilla)
 └── vault.db         # Base de datos local (Se genera automáticamente)
-
+```
 ⚡ Instalación y Despliegue Local
-
+```bash
     Clona este repositorio:
     Bash
 
@@ -41,7 +41,7 @@ pip install fastapi uvicorn pydantic
 
     Accede desde tu navegador:
     Abre http://127.0.0.1:8000 en tu navegador preferido.
-
+```
 ⌨️ Atajos de Teclado del Vault
 
     Ctrl + K: Enfoca el cursor automáticamente en la barra de búsqueda lateral.
