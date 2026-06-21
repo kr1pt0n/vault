@@ -31,22 +31,22 @@ sudo apt install python3-pip python3-venv python3-uvicorn python3-fastapi uvicor
 
 [+] Clona este repositorio:
 ```bash
-    git clone [https://github.com/kr1pt0n/vault.git]
-    cd vault
+git clone [https://github.com/kr1pt0n/vault.git]
+cd vault
 ```
 [+] Inicia el servidor con Uvicorn:
 ```bash
-    uvicorn main:app --reload
+uvicorn main:app --reload
 ```
 [+] Accede desde tu navegador:
 ```bash
-    Abre http://127.0.0.1:8000 en tu navegador preferido.
+http://127.0.0.1:8000 en tu navegador preferido.
 ```
 ⌨️ Atajos de Teclado del Vault
 
-    Ctrl + K: Enfoca el cursor automáticamente en la barra de búsqueda lateral.
+Ctrl + K: Enfoca el cursor automáticamente en la barra de búsqueda lateral.
 
-    Esc: Cierra cualquier modal o formulario abierto de forma inmediata.
+Esc: Cierra cualquier modal o formulario abierto de forma inmediata.
 
 🔒 Nota de Seguridad / Descargo de Responsabilidad
 
