@@ -28,18 +28,18 @@ sudo apt install python3-pip python3-venv python3-uvicorn python3-fastapi uvicor
 └── vault.db         # Base de datos local (Se genera automáticamente)
 ```
 ⚡ Instalación y Despliegue Local
-```bash
-    Clona este repositorio:
-    Bash
 
+    [+]Clona este repositorio:
+```bash
     git clone [https://github.com/kr1pt0n/vault.git]
     cd vault
-
-    Inicia el servidor con Uvicorn:
-
+```
+    [+]Inicia el servidor con Uvicorn:
+```bash
     uvicorn main:app --reload
-
-    Accede desde tu navegador:
+```
+    [+]Accede desde tu navegador:
+```bash
     Abre http://127.0.0.1:8000 en tu navegador preferido.
 ```
 ⌨️ Atajos de Teclado del Vault
