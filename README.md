@@ -76,9 +76,9 @@ Este proyecto está completamente dockerizado. No necesitas instalar Python, Fas
    sudo docker compose up -d --build
 
 2. **Accede desde tu navegador:**
-```bash
-http://127.0.0.1:8000 en tu navegador preferido.
-```
+   ```bash
+    http://127.0.0.1:8000 en tu navegador preferido.
+   ```
 ---
 
 ⌨️ Atajos de Teclado del Vault
