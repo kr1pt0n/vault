@@ -10,6 +10,7 @@
   <img src="https://img.shields.io/badge/-HTML5-black?style=for-the-badge&logoColor=white&logo=html5&color=E34F26" alt="html5" />
   <img src="https://img.shields.io/badge/-CSS3-black?style=for-the-badge&logoColor=white&logo=css3&color=1572B6" alt="css3" />
   <img src="https://img.shields.io/badge/-JavaScript-black?style=for-the-badge&logoColor=white&logo=javascript&color=F7DF1E" alt="javascript" />
+  <img src="https://img.shields.io/badge/-Docker-black?style=for-the-badge&logoColor=white&logo=docker&color=2496ED" alt="docker" />
 </div>
 </div>
 <h3 align="center">⚡ VAULT - Red Team Command & Payload Manager</h3>
@@ -56,6 +57,30 @@ uvicorn main:app --reload
 ```bash
 http://127.0.0.1:8000 en tu navegador preferido.
 ```
+---
+
+## 🐳 Despliegue Rápido con Docker
+
+Este proyecto está completamente dockerizado. No necesitas instalar Python, FastAPI ni SQLite de forma local en tu máquina. Docker se encarga de empaquetar y configurar todo el entorno automáticamente.
+
+### 📋 Requisitos Previos
+* [Docker](https://docs.docker.com/get-docker/) instalado.
+* [Docker Compose](https://docs.docker.com/compose/install/) instalado.
+
+### 🚀 Pasos para Iniciar
+
+1. **Clonar el repositorio:**
+   ```bash
+   git clone https://github.com/kr1pt0n/vault.git
+   cd vault
+   sudo docker compose up -d --build
+
+2. **Clonar el repositorio:**
+```bash
+http://127.0.0.1:8000 en tu navegador preferido.
+```
+---
+
 ⌨️ Atajos de Teclado del Vault
 
 Ctrl + K: Enfoca el cursor automáticamente en la barra de búsqueda lateral.
