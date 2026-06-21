@@ -1,8 +1,7 @@
-<p align="center">
-  <img src="https://capsule-render.vercel.app/render?type=wave&color=09090b&height=180&section=header&text=VAULT&fontSize=50&fontColor=ef4444&animation=fadeIn" alt="Vault Banner" />
-</p>
-
-# ⚡ VAULT - Red Team Command & Payload Manager
+<div align="center">
+  <br />
+      <img src="https://i.ibb.co/F4YdsHZX/Chat-GPT-Image-15-jun-2026-02-03-43-p-m.png" alt="Project Banner">
+  <br />
 
 <div>
   <img src="https://img.shields.io/badge/-Python-black?style=for-the-badge&logoColor=white&logo=python&color=3776AB" alt="python" />
@@ -13,7 +12,7 @@
   <img src="https://img.shields.io/badge/-JavaScript-black?style=for-the-badge&logoColor=white&logo=javascript&color=F7DF1E" alt="javascript" />
 </div>
 
-# ⚡ VAULT - Red Team Command & Payload Manager
+<h3 align="center">⚡ VAULT - Red Team Command & Payload Manager</h3> # 
 
 **VAULT** es un gestor local e interactivo diseñado para operadores de Red Team y pentesters. Permite centralizar, buscar, copiar, crear y editar payloads, exploits o comandos recurrentes organizados por categorías tácticas (Escaneo, Explotación, Persistencia, etc.) a través de una interfaz web minimalista con modo oscuro optimizado.
 
