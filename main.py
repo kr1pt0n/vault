@@ -1,4 +1,5 @@
 import sqlite3
+import os
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -6,11 +7,18 @@ from pydantic import BaseModel
 
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
-DB_NAME = "vault.db"
+
+# 1. Automatización de rutas para Docker: Creamos la carpeta 'data' si no existe
+os.makedirs("data", exist_ok=True)
+DB_NAME = "data/vault.db"
 
 def init_db():
     with sqlite3.connect(DB_NAME, timeout=20) as conn:
-        conn.execute("CREATE TABLE IF NOT EXISTS commands (id INTEGER PRIMARY KEY AUTOINCREMENT, tipo TEXT, os TEXT, nombre TEXT, comando TEXT)")
+        conn.execute(
+            "CREATE TABLE IF NOT EXISTS commands ("
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+            "tipo TEXT, os TEXT, nombre TEXT, comando TEXT)"
+        )
 init_db()
 
 class Command(BaseModel):
@@ -54,4 +62,8 @@ def update(id: int, c: Command):
         return {"status": "ok", "message": "Comando actualizado"}
         
 @app.get("/")
-def index(): return FileResponse("index.html")
+def index(): 
+    # Validación extra de seguridad para entornos de contenedores
+    if not os.path.exists("index.html"):
+        raise HTTPException(status_code=404, detail="Archivo index.html no encontrado en el contenedor")
+    return FileResponse("index.html")
