@@ -44,16 +44,16 @@ sudo apt install python3-pip python3-venv python3-uvicorn python3-fastapi uvicor
 ```
 ⚡ Instalación y Despliegue Local
 
-[+] Clona este repositorio:
+1. **Clonar el repositorio:**
 ```bash
 git clone https://github.com/kr1pt0n/vault.git
 cd vault
 ```
-[+] Inicia el servidor con Uvicorn:
+2. **Inicia el servidor con Uvicorn**
 ```bash
 uvicorn main:app --reload
 ```
-[+] Accede desde tu navegador:
+3. **Accede desde tu navegador:**
 ```bash
 http://127.0.0.1:8000 en tu navegador preferido.
 ```
@@ -75,7 +75,7 @@ Este proyecto está completamente dockerizado. No necesitas instalar Python, Fas
    cd vault
    sudo docker compose up -d --build
 
-2. **Clonar el repositorio:**
+2. **Accede desde tu navegador:**
 ```bash
 http://127.0.0.1:8000 en tu navegador preferido.
 ```
