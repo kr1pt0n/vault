@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>VAULT</title>
+    <style>
+        :root { --bg: #09090b; --panel: #18181b; --accent: #3b82f6; --danger: #ef4444; --text: #e4e4e7; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; height: 100vh; margin: 0; overflow: hidden; }
+        
+        header { display: flex; justify-content: space-between; padding: 15px 25px; border-bottom: 1px solid #27272a; align-items: center; background: #0c0c0e; }
+        .nav-cats { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+        
+        button { cursor: pointer; border: none; padding: 8px 14px; border-radius: 6px; background: #27272a; color: #a1a1aa; font-weight: 600; transition: 0.2s; }
+        button:hover { background: #3f3f46; color: white; }
+        button.active { background: var(--accent); color: white; }
+        
+        /* Botón Crear Comando Estilo Red Team */
+        .btn-create { background: var(--danger); color: white; }
+        .btn-create:hover { background: #dc2626; transform: scale(1.05); }
+
+        main { display: flex; flex: 1; overflow: hidden; }
+        #sidebar { width: 320px; border-right: 1px solid #27272a; display: flex; flex-direction: column; padding: 15px; background: #0c0c0e; }
+        
+        #searchBox { width: 100%; padding: 12px; background: #18181b; border: 1px solid #27272a; color: white; border-radius: 8px; margin-bottom: 15px; outline: none; }
+        #searchBox:focus { border-color: var(--accent); }
+
+        #cmdList { overflow-y: auto; flex: 1; }
+        .cmd-item { padding: 14px; border-radius: 8px; cursor: pointer; border: 1px solid transparent; margin-bottom: 8px; background: #18181b; transition: 0.2s; }
+        .cmd-item:hover { background: #27272a; }
+        .cmd-item.selected { border-color: var(--accent); background: #1e1e2e; }
+
+        .content { flex: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; position: relative; }
+        .code-box { background: #000; padding: 25px; border-radius: 10px; border: 2px solid #27272a; color: #34d399; font-family: 'Consolas', monospace; cursor: pointer; transition: 0.3s; line-height: 1.5; white-space: pre-wrap; font-size: 15px; }
+        .code-box:hover { border-color: #34d399; }
+
+        /* Modal Overlay */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(4px); }
+        .modal-content { background: var(--panel); width: 800px; max-width: 90%; height: 600px; border-radius: 12px; border: 1px solid #3f3f46; display: flex; flex-direction: column; padding: 25px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal-header h3 { margin: 0; font-size: 24px; color: white; }
+
+        input, select, textarea { width: 100%; background: #09090b; border: 1px solid #27272a; color: white; padding: 12px; margin-bottom: 15px; border-radius: 6px; font-size: 14px; box-sizing: border-box; }
+        textarea { flex: 1; resize: none; font-family: monospace; font-size: 14px; border-color: #3f3f46; }
+        
+        .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 15px; }
+        .btn-cancel { background: #3f3f46; color: white; }
+        .btn-save { background: var(--accent); color: white; padding-left: 30px; padding-right: 30px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-cats">
+            <h2 style="margin:0; margin-right: 20px; color: white; letter-spacing: 1px;">VAULT</h2>
+            <div id="tabs" class="nav-cats"></div>
+            <button onclick="openModal('create')" class="btn-create">Crear Comando</button>
+        </div>
+        <button id="toggleEdit">Modo Edición</button>
+    </header>
+
+    <main>
+        <div id="sidebar">
+            <input type="text" id="searchBox" placeholder="Buscar comando... (Ctrl+K)">
+            <div id="cmdList"></div>
+        </div>
+        <div class="content">
+            <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2 id="viewTitle" style="margin:0; color: white;">Selecciona un comando</h2>
+                <div id="deleteZone" style="display:none; gap: 10px;">
+                    <button id="btnEditCmd" style="background:#1e3a8a; color:#93c5fd;">Editar comando</button>
+                    <button id="btnDelete" style="background:#7f1d1d; color:#fca5a5;">Eliminar permanentemente</button>
+                </div>
+            </div>
+            <div class="code-box" id="viewCode">Los detalles del comando aparecerán aquí...</div>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Nuevo Comando</h3>
+                <button onclick="closeModal()" style="background:transparent; font-size: 24px;">&times;</button>
+            </div>
+            <form id="addForm" style="display:flex; flex: 1; flex-direction: column;">
+                <input type="text" id="formNombre" placeholder="Nombre del exploit / comando" required>
+                <div style="display: flex; gap: 10px;">
+                    <select id="formTipo" style="flex: 1;"></select>
+                    <select id="formOS" style="flex: 1;">
+                        <option>Linux</option>
+                        <option>Windows</option>
+                        <option>Android</option>
+                        <option>Web / General</option>
+                    </select>
+                </div>
+                <textarea id="formComando" placeholder="Escribe el payload o comando aquí..." required></textarea>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="btn-save" id="btnSubmitForm">Guardar en Vault</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const cats = ["Escaneo", "Fuzzing", "Explotacion", "Persistencia", "Inyeccion de Backdoor", "Exfiltracion", "Crontabs", "CVEs"];
+        let data = [], activeCat = cats[0], selected = null, editMode = false;
+        let modalMode = "create";
+
+        // Cargar datos
+        async function load() { 
+            const res = await fetch('/api/commands'); 
+            data = await res.json(); 
+            render(); 
+        }
+
+        // Abrir/Cerrar Modal
+        function openModal(mode) { 
+            modalMode = mode;
+            const modalElement = document.getElementById('modal');
+            const titleElement = document.getElementById('modalTitle');
+            const submitBtn = document.getElementById('btnSubmitForm');
+            
+            if (mode === 'edit' && selected) {
+                titleElement.innerText = "Editar Comando";
+                submitBtn.innerText = "Actualizar en Vault";
+                
+                document.getElementById('formNombre').value = selected.nombre;
+                document.getElementById('formTipo').value = selected.tipo;
+                document.getElementById('formOS').value = selected.os;
+                document.getElementById('formComando').value = selected.comando;
+            } else {
+                titleElement.innerText = "Nuevo Comando";
+                submitBtn.innerText = "Guardar en Vault";
+                document.getElementById('addForm').reset();
+                document.getElementById('formTipo').value = activeCat;
+            }
+            
+            modalElement.style.display = 'flex'; 
+        }
+        
+        function closeModal() { 
+            document.getElementById('modal').style.display = 'none'; 
+            document.getElementById('addForm').reset(); 
+        }
+
+        // Corregido el .style.style que bloqueaba las pestañas
+        function resetView() {
+            selected = null;
+            document.getElementById('viewTitle').innerText = 'Selecciona un comando';
+            document.getElementById('viewCode').innerText = 'Los detalles del comando aparecerán aquí...';
+            document.getElementById('deleteZone').style.display = 'none';
+        }
+
+        // Función render
+        function render() {
+            const list = document.getElementById('cmdList');
+            list.innerHTML = '';
+            
+            const query = document.getElementById('searchBox').value.toLowerCase();
+            
+            const filtrados = data.filter(c => 
+                c.tipo === activeCat && 
+                (c.nombre.toLowerCase().includes(query) || c.comando.toLowerCase().includes(query))
+            );
+            
+            filtrados.forEach(c => {
+                const div = document.createElement('div');
+                div.className = `cmd-item ${selected?.id === c.id ? 'selected' : ''}`;
+                div.innerHTML = `<strong>${c.nombre}</strong><br><small style="color:#71717a">${c.os}</small>`;
+                div.onclick = () => { 
+                    selected = c; 
+                    document.getElementById('viewTitle').innerText = c.nombre; 
+                    document.getElementById('viewCode').innerText = c.comando; 
+                    document.getElementById('deleteZone').style.display = editMode ? 'flex' : 'none';
+                    render(); 
+                };
+                list.appendChild(div);
+            });
+        }
+
+        document.getElementById('searchBox').oninput = () => {
+            render();
+        };
+
+        // Procesar Guardar / Modificar comando
+        document.getElementById('addForm').onsubmit = async (e) => {
+            e.preventDefault();
+            
+            const payload = {
+                nombre: document.getElementById('formNombre').value,
+                tipo: document.getElementById('formTipo').value,
+                os: document.getElementById('formOS').value,
+                comando: document.getElementById('formComando').value
+            };
+
+            if (modalMode === 'edit' && selected) {
+                await fetch(`/api/commands/${selected.id}`, {
+                    method: 'PUT',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(payload)
+                });
+                document.getElementById('viewTitle').innerText = payload.nombre; 
+                document.getElementById('viewCode').innerText = payload.comando;
+                selected = { id: selected.id, ...payload };
+            } else {
+                await fetch('/api/commands', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(payload)
+                });
+            }
+            
+            closeModal();
+            load();
+        };
+
+        // Modo Edición
+        document.getElementById('toggleEdit').onclick = (e) => {
+            editMode = !editMode;
+            document.getElementById('deleteZone').style.display = (editMode && selected) ? 'flex' : 'none';
+            e.target.style.background = editMode ? '#b91c1c' : '#27272a';
+            e.target.style.color = editMode ? 'white' : '#a1a1aa';
+        };
+
+        document.getElementById('btnEditCmd').onclick = () => {
+            openModal('edit');
+        };
+
+        // Copiar comando
+        document.getElementById('viewCode').onclick = () => { 
+            if(selected) {
+                navigator.clipboard.writeText(selected.comando);
+                const box = document.getElementById('viewCode');
+                box.style.borderColor = '#34d399';
+                setTimeout(() => box.style.borderColor = '', 300);
+            }
+        };
+        
+        // Eliminar
+        document.getElementById('btnDelete').onclick = async () => {
+            if(confirm(`¿Deseas eliminar permanentemente: ${selected.nombre}?`)) {
+                await fetch(`/api/commands/${selected.id}`, {method: 'DELETE'});
+                resetView();
+                await load();
+            }
+        };
+
+        // Atajos de teclado
+        window.onkeydown = (e) => { 
+            if(e.ctrlKey && e.key === 'k') { e.preventDefault(); document.getElementById('searchBox').focus(); }
+            if(e.key === 'Escape') closeModal();
+        };
+
+        // Inicializar pestañas y selects
+        cats.forEach(cat => {
+            const btn = document.createElement('button');
+            btn.textContent = cat;
+            btn.className = (cat === activeCat) ? 'active' : '';
+            btn.onclick = () => { 
+                activeCat = cat; 
+                resetView();
+                document.getElementById('searchBox').value = ''; 
+                document.querySelectorAll('#tabs button').forEach(b=>b.classList.remove('active')); 
+                btn.classList.add('active'); 
+                render(); 
+            };
+            document.getElementById('tabs').appendChild(btn);
+            document.getElementById('formTipo').innerHTML += `<option value="${cat}">${cat}</option>`;
+        });
+
+        load();
+    </script>
+</body>
+</html>
