@@ -18,8 +18,8 @@ SECRET_KEY = "SUPER_SECRET_VAULT_KEY_1337"  # Cambia esto por un string aleatori
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 240  # El login dura 4 horas activo
 
-ADMIN_USER = "admin"
-ADMIN_PASS = "password"  # Pon aquí la contraseña que usarás para entrar
+ADMIN_USER = "root"
+ADMIN_PASS = "seguridad"  # Pon aquí la contraseña que usarás para entrar
 # =====================================================================
 
 # 1. Automatización de rutas para Docker: Creamos la carpeta 'data' si no existe
@@ -108,3 +108,7 @@ def index():
     if not os.path.exists("index.html"):
         raise HTTPException(status_code=404, detail="Archivo index.html no encontrado en el contenedor")
     return FileResponse("index.html")
+
+@app.get("/ico.png", include_in_schema=False)
+def favicon():
+    return FileResponse("ico.png")
